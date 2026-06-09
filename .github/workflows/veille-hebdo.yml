@@ -1,46 +1,52 @@
-name: Veille Immobilier Hebdomadaire
+name: Envoyer la Veille par Email
 
 on:
-  schedule:
-    # Tous les lundis à 7h00 heure de Paris (6h UTC)
-    - cron: "0 6 * * 1"
-  workflow_dispatch: # permet aussi de lancer manuellement
+  workflow_dispatch:
+    inputs:
+      html_content:
+        description: "Contenu HTML de la veille (base64)"
+        required: true
 
 jobs:
-  veille:
+  send-email:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Générer la veille via Claude
-        uses: anthropics/claude-code-action@beta
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          prompt: |
-            Tu es un analyste produit spécialisé dans l'écosystème des logiciels immobiliers français et européens.
-            Réalise une veille structurée en 3 catégories sur internet.
-
-            CATÉGORIE 1 — ÉDITEURS LOGICIELS MÉTIER / CRM
-            Orisha, Septeo Immobilier, Modelo, La Boite Immo, Apimo, Hektor, SweepBright, Propertybase, Reapit
-
-            CATÉGORIE 2 — SERVICES SPÉCIALISÉS & BRIQUES IA
-            Nodalview, Jo AI, Meero, Pricehubble, Yanport, Castorus, Kadran, Garantme, Yousign, Sinimo, Unlatch
-
-            CATÉGORIE 3 — RÉSEAUX & MARQUES IMMOBILIÈRES
-            Century 21, Orpi, Laforêt, Guy Hoquet, Citya, Foncia, Nexity, IAD, SAFTI, Capifrance, Optimhome, Sotheby's France
-
-            Génère le rapport complet au format HTML dans un fichier nommé veille.html.
-            Utilise le même design que le fichier ed551670-index.html présent dans le repo.
-          allowed_tools: "WebSearch,Write,Read"
-
-      - name: Envoyer par email
+      - name: Décoder et envoyer la veille
         env:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-        run: python3 send_veille.py
+        run: |
+          echo "${{ github.event.inputs.html_content }}" | base64 -d > veille.html
+          python3 - <<'EOF'
+          import smtplib, os, base64
+          from email.mime.multipart import MIMEMultipart
+          from email.mime.text import MIMEText
+          from email.mime.base import MIMEBase
+          from email import encoders
+          from datetime import date
+
+          FROM     = "julien.pajor@naxos.fr"
+          PASSWORD = os.environ["EMAIL_PASSWORD"]
+          TO       = ["julien.pajor@naxos.fr"]
+          today    = date.today().strftime("%d %B %Y")
+
+          msg = MIMEMultipart("mixed")
+          msg["From"]    = FROM
+          msg["To"]      = ", ".join(TO)
+          msg["Subject"] = f"Veille Immobilier & Proptech — {today}"
+          msg.attach(MIMEText(
+              f"Bonjour,\n\nVeuillez trouver en pièce jointe la veille du {today}.\n\nBonne lecture,\nNaxos",
+              "plain", "utf-8"
+          ))
+          with open("veille.html", "rb") as f:
+              part = MIMEBase("application", "octet-stream")
+              part.set_payload(f.read())
+          encoders.encode_base64(part)
+          part.add_header("Content-Disposition", f'attachment; filename="veille-{today}.html"')
+          msg.attach(part)
+
+          with smtplib.SMTP("smtp.office365.com", 587) as s:
+              s.ehlo(); s.starttls(); s.ehlo()
+              s.login(FROM, PASSWORD)
+              s.sendmail(FROM, TO, msg.as_string())
+          print("✅ Email envoyé !")
+          EOF
