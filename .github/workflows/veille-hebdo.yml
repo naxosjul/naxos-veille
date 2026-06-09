@@ -1,0 +1,46 @@
+name: Veille Immobilier Hebdomadaire
+
+on:
+  schedule:
+    # Tous les lundis à 7h00 heure de Paris (6h UTC)
+    - cron: "0 6 * * 1"
+  workflow_dispatch: # permet aussi de lancer manuellement
+
+jobs:
+  veille:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Générer la veille via Claude
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Tu es un analyste produit spécialisé dans l'écosystème des logiciels immobiliers français et européens.
+            Réalise une veille structurée en 3 catégories sur internet.
+
+            CATÉGORIE 1 — ÉDITEURS LOGICIELS MÉTIER / CRM
+            Orisha, Septeo Immobilier, Modelo, La Boite Immo, Apimo, Hektor, SweepBright, Propertybase, Reapit
+
+            CATÉGORIE 2 — SERVICES SPÉCIALISÉS & BRIQUES IA
+            Nodalview, Jo AI, Meero, Pricehubble, Yanport, Castorus, Kadran, Garantme, Yousign, Sinimo, Unlatch
+
+            CATÉGORIE 3 — RÉSEAUX & MARQUES IMMOBILIÈRES
+            Century 21, Orpi, Laforêt, Guy Hoquet, Citya, Foncia, Nexity, IAD, SAFTI, Capifrance, Optimhome, Sotheby's France
+
+            Génère le rapport complet au format HTML dans un fichier nommé veille.html.
+            Utilise le même design que le fichier ed551670-index.html présent dans le repo.
+          allowed_tools: "WebSearch,Write,Read"
+
+      - name: Envoyer par email
+        env:
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        run: python3 send_veille.py

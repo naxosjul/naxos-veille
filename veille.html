@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veille Immobilier — Naxos — 8 juin 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy:  #1A3A5C;
+            --blue:  #008EC8;
+            --sky:   #5BBCDB;
+            --coral: #E05040;
+            --gris:  #8A9BAD;
+            --bg:    #EEF3F8;
+            --white: #ffffff;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            background: var(--bg);
+            color: var(--navy);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            background: var(--navy);
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            box-shadow: 0 3px 24px rgba(26,58,92,.45);
+        }
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 48px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .brand-mark {
+            width: 38px; height: 38px;
+            background: var(--blue);
+            border-radius: 7px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 19px; color: #fff;
+            letter-spacing: -1px;
+        }
+        .brand-name {
+            font-weight: 900;
+            font-size: 17px;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        .header-center { text-align: center; }
+        .header-center .eyebrow {
+            font-weight: 300;
+            font-size: 11px;
+            letter-spacing: .38em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.45);
+            margin-bottom: 3px;
+        }
+        .header-center .title {
+            font-weight: 900;
+            font-size: 17px;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        .header-right { text-align: right; }
+        .date-pill {
+            display: inline-block;
+            background: var(--blue);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+        .date-sub {
+            font-size: 11px;
+            color: var(--gris);
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* ── NAV STRIP ── */
+        .nav-strip {
+            display: flex;
+            padding: 0 48px;
+            overflow-x: auto;
+        }
+        .nav-strip::-webkit-scrollbar { display: none; }
+        .nav-item {
+            padding: 10px 18px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.42);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+            transition: color .2s, border-color .2s;
+        }
+        .nav-item:hover {
+            color: #fff;
+            border-bottom-color: var(--blue);
+        }
+
+        /* ── MAIN ── */
+        .main {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 44px 48px 90px;
+        }
+
+        /* ── SECTION ── */
+        .section { margin-bottom: 52px; }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(26,58,92,.1);
+        }
+        .section-icon { font-size: 22px; line-height: 1; }
+        .section-meta { display: flex; flex-direction: column; gap: 2px; }
+        .section-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .32em;
+            text-transform: uppercase;
+            color: var(--blue);
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        /* ── SIGNAL FORT CARDS ── */
+        .signal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .signal-card {
+            background: var(--white);
+            border-radius: 9px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(26,58,92,.08);
+        }
+        .signal-card-head {
+            background: var(--coral);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .signal-num {
+            width: 24px; height: 24px;
+            background: rgba(255,255,255,.22);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 12px; color: #fff;
+            flex-shrink: 0;
+        }
+        .signal-badge {
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.9);
+        }
+        .signal-card-body { padding: 22px 24px; }
+        .signal-card-body h3 {
+            font-weight: 700;
+            font-size: 14.5px;
+            color: var(--navy);
+            margin-bottom: 10px;
+            line-height: 1.45;
+        }
+        .signal-card-body p {
+            font-weight: 300;
+            font-size: 13.5px;
+            color: var(--navy);
+            line-height: 1.75;
+        }
+        .signal-card-body strong { font-weight: 700; color: var(--blue); }
+
+        /* ── TAGS ── */
+        .tag {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-right: 4px;
+            margin-bottom: 6px;
+        }
+        .tag-acq  { background: rgba(224,80,64,.12);  color: var(--coral); }
+        .tag-ia   { background: rgba(0,142,200,.12);  color: var(--blue);  }
+        .tag-part { background: rgba(91,188,219,.22); color: #2e8fb5;      }
+        .tag-prod { background: rgba(26,58,92,.1);    color: var(--navy);  }
+
+        /* ── TABLES ── */
+        .table-wrap {
+            background: var(--white);
+            border-radius: 9px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(26,58,92,.08);
+        }
+        table { width: 100%; border-collapse: collapse; }
+        thead tr { background: var(--navy); }
+        thead th {
+            padding: 13px 16px;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.85);
+            text-align: left;
+        }
+        tbody tr {
+            border-bottom: 1px solid rgba(26,58,92,.06);
+            transition: background .15s;
+        }
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:nth-child(even) { background: rgba(238,243,248,.55); }
+        tbody tr:hover { background: rgba(0,142,200,.05); }
+        tbody td {
+            padding: 15px 16px;
+            font-size: 13.5px;
+            font-weight: 300;
+            vertical-align: top;
+            line-height: 1.65;
+        }
+
+        .td-actor {
+            font-weight: 700;
+            color: var(--navy);
+            white-space: nowrap;
+            width: 11%;
+            min-width: 110px;
+        }
+        .td-actor em {
+            display: block;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 11.5px;
+            color: var(--gris);
+            margin-top: 2px;
+        }
+        .td-signal { width: 35%; }
+        .td-source { width: 9%; }
+        .td-source a {
+            display: block;
+            color: var(--blue);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .td-source a:hover { text-decoration: underline; }
+        .td-analyse {
+            width: 45%;
+            background: rgba(0,142,200,.03);
+            border-left: 2px solid var(--sky);
+            font-style: italic;
+        }
+        .td-analyse strong {
+            font-style: normal;
+            font-weight: 700;
+            color: var(--navy);
+        }
+        .no-info {
+            color: var(--gris);
+            font-style: italic;
+        }
+
+        /* ── DATE BADGE ── */
+        .td-date {
+            width: 90px;
+            min-width: 82px;
+            text-align: center;
+            vertical-align: top;
+            padding-top: 15px;
+        }
+        .date-chip {
+            display: inline-block;
+            background: var(--navy);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 4px;
+            line-height: 1.4;
+            text-align: center;
+        }
+        .date-chip.fresh  { background: var(--blue); }
+        .date-chip.recent { background: var(--navy); }
+        .date-chip.old    { background: var(--gris); }
+        .date-chip.none   { background: transparent; color: var(--gris); border: 1px dashed var(--gris); }
+
+        /* ── OPPORTUNITÉS ── */
+        .opps { display: flex; flex-direction: column; gap: 14px; }
+        .opp {
+            background: var(--white);
+            border-radius: 9px;
+            border-left: 5px solid var(--blue);
+            padding: 20px 26px;
+            display: flex;
+            gap: 22px;
+            align-items: flex-start;
+            box-shadow: 0 2px 14px rgba(26,58,92,.07);
+        }
+        .opp-n {
+            font-weight: 900;
+            font-size: 38px;
+            line-height: 1;
+            color: var(--blue);
+            opacity: .18;
+            min-width: 40px;
+            margin-top: -4px;
+        }
+        .opp-body h4 {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--navy);
+            margin-bottom: 7px;
+            line-height: 1.4;
+        }
+        .opp-body p {
+            font-weight: 300;
+            font-size: 13.5px;
+            color: var(--navy);
+            line-height: 1.7;
+        }
+        .urgency {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .urgency-high { background: rgba(224,80,64,.12); color: var(--coral); }
+        .urgency-mid  { background: rgba(0,142,200,.12); color: var(--blue);  }
+
+        /* ── SIGNAUX FAIBLES ── */
+        .sf { display: flex; flex-direction: column; gap: 12px; }
+        .sf-item {
+            background: var(--white);
+            border-radius: 9px;
+            border-left: 5px solid var(--sky);
+            padding: 17px 22px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            box-shadow: 0 2px 14px rgba(26,58,92,.07);
+        }
+        .sf-arrow {
+            color: var(--sky);
+            font-weight: 900;
+            font-size: 18px;
+            line-height: 1.45;
+            flex-shrink: 0;
+        }
+        .sf-text {
+            font-size: 13.5px;
+            font-weight: 300;
+            line-height: 1.75;
+            color: var(--navy);
+        }
+        .sf-text strong { font-weight: 700; }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--navy);
+            color: rgba(255,255,255,.38);
+            text-align: center;
+            padding: 26px 48px;
+            font-size: 11.5px;
+            letter-spacing: .1em;
+        }
+        .footer b { color: var(--blue); font-weight: 700; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .header-top  { padding: 14px 20px; }
+            .nav-strip   { padding: 0 20px; }
+            .main        { padding: 28px 20px 70px; }
+            .signal-grid { grid-template-columns: 1fr; }
+            .td-analyse  { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════════  HEADER  ════════════════════ -->
+<header class="header">
+    <div class="header-top">
+        <div class="brand">
+            <div class="brand-mark">N</div>
+            <div class="brand-name">Naxos</div>
+        </div>
+        <div class="header-center">
+            <div class="eyebrow">Veille concurrentielle</div>
+            <div class="title">Immobilier &amp; Proptech</div>
+        </div>
+        <div class="header-right">
+            <div class="date-pill">8 Juin 2026</div>
+            <div class="date-sub">Mise à jour quotidienne</div>
+        </div>
+    </div>
+    <nav class="nav-strip">
+        <a class="nav-item" href="#signal-fort">🔴 Signal fort</a>
+        <a class="nav-item" href="#cat1">📦 Éditeurs CRM</a>
+        <a class="nav-item" href="#cat2">🔌 Services &amp; IA</a>
+        <a class="nav-item" href="#cat3">🏢 Réseaux</a>
+        <a class="nav-item" href="#opps">💡 Opportunités</a>
+        <a class="nav-item" href="#sf">⚠️ Signaux faibles</a>
+    </nav>
+</header>
+
+<!-- ════════════════════  MAIN  ════════════════════ -->
+<main class="main">
+
+    <!-- ── SIGNAL FORT ── -->
+    <section class="section" id="signal-fort">
+        <div class="section-header">
+            <span class="section-icon">🔴</span>
+            <div class="section-meta">
+                <span class="section-label">Priorité immédiate</span>
+                <span class="section-title">Signal fort du jour</span>
+            </div>
+        </div>
+        <div class="signal-grid">
+            <div class="signal-card">
+                <div class="signal-card-head">
+                    <div class="signal-num">1</div>
+                    <div class="signal-badge">Acquisition stratégique · Mars 2026</div>
+                </div>
+                <div class="signal-card-body">
+                    <h3>Septeo rachète Cadastre.com — La verticale intégrale est en marche</h3>
+                    <p>Septeo boucle l'acquisition de Cadastre.com, outil de pige data-driven (DVF, DPE, cadastre), directement intégré à Modelo. En moins de 8 mois : <strong>INCH</strong> (ADB + IA), <strong>Bylaw</strong> (IA juridique), <strong>Cadastre.com</strong> (prospection). Près de <strong>100 M€ investis en IA en 2025</strong>. Objectif : doubler la base clients à 8 000 agences fin 2026. Un CRM sans data de prospection sera perçu comme incomplet dès H2 2026.</p>
+                </div>
+            </div>
+            <div class="signal-card">
+                <div class="signal-card-head">
+                    <div class="signal-num">2</div>
+                    <div class="signal-badge">Partenariat · Déc 2025</div>
+                </div>
+                <div class="signal-card-body">
+                    <h3>SweepBright × Jo AI — Le CRM agentique entre en scène</h3>
+                    <p>Le CRM belge SweepBright s'allie à <strong>Jo AI</strong> (France), 1er cas documenté d'un CRM immobilier européen intégrant une IA <strong>« agentique »</strong> — capable d'agir de façon autonome (relances, suggestions, actions proactives) sans attendre l'instruction de l'agent. Nouveau benchmark qui va structurer les pitches commerciaux dès 2027.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CATÉGORIE 1 ── -->
+    <section class="section" id="cat1">
+        <div class="section-header">
+            <span class="section-icon">📦</span>
+            <div class="section-meta">
+                <span class="section-label">Catégorie 1</span>
+                <span class="section-title">Éditeurs logiciels métier / CRM</span>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Acteur</th>
+                        <th>Date</th>
+                        <th>Signal</th>
+                        <th>Source</th>
+                        <th>Analyse produit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="td-actor">Septeo / Modelo<em>Montpellier</em></td>
+                        <td class="td-date"><span class="date-chip fresh">13 mars<br>2026</span></td>
+                        <td class="td-signal">
+                            <span class="tag tag-acq">Acquisition</span><span class="tag tag-ia">IA</span><br>
+                            Rachat de <strong>Cadastre.com</strong> (Mars 2026) : pige DVF, DPE, cadastre intégrée dans Modelo. Avant ça : <strong>INCH</strong> (ADB/IA, Oct 2025), <strong>Bylaw</strong> (IA juridique), Consortium Immobilier. MIA 2 déployé fin 2025. Guillaume Girard : <em>« l'intelligence active, c'est l'IA utile aux agents »</em>.
+                        </td>
+                        <td class="td-source">
+                            <a href="https://www.mysweetimmo.com/2026/03/25/immobilier-septeo-rachete-cadastre-com-pour-aider-les-agents-a-trouver-plus-de-vendeurs/" target="_blank">MySweetImmo</a>
+                            <a href="https://immo2.pro/actualite-immobilier/septeo-renforce-modelo-avec-lacquisition-de-cadastre-com/" target="_blank">Immobilier 2.0</a>
+                        </td>
+                        <td class="td-analyse"><strong>Risque concurrentiel majeur.</strong> Septeo construit une suite all-in-one prospection → mandat → signature → gestion. Chaque acquisition réduit la raison d'être d'un CRM concurrent mono-produit. Sans data de prospection, le CRM sera incomplet dès H2 2026.</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">La Boîte Immo / Hektor<em>Var</em></td>
+                        <td class="td-date"><span class="date-chip recent">4 déc.<br>2025</span></td>
+                        <td class="td-signal">
+                            <span class="tag tag-acq">Acquisition</span><span class="tag tag-prod">V3.0</span><br>
+                            Rachat de <strong>HOQI</strong> (home staging IA, Déc 2025) + lancement <strong>Hektor 3.0</strong> : automation & IA sur tâches critiques, data enrichie, UX mobile. 14ᵉ acquisition depuis 2009. HOQI : 11 000 agents actifs, visuels générés en quelques secondes.
+                        </td>
+                        <td class="td-source">
+                            <a href="https://www.journaldelagence.com/1408662-la-boite-immo-accelere-sur-lia-avec-lacquisition-dhoqi-et-hektor-3-0" target="_blank">Journal de l'Agence</a>
+                            <a href="https://www.mysweetimmo.com/2025/12/04/immobilier-la-boite-immo-rachete-hoqi-startup-specialiste-du-home-staging-assiste-par-ia/" target="_blank">MySweetImmo</a>
+                        </td>
+                        <td class="td-analyse">Le home staging IA devient une <strong>feature CRM native</strong>, non un outil tiers. La pression sur l'intégration visuelle IA s'accélère. Question clé : à quel stade du workflow mandat l'IA visuelle est-elle déclenchée ?</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">Orisha Real Estate<em>France</em></td>
+                        <td class="td-date"><span class="date-chip recent">Oct–Nov<br>2025</span></td>
+                        <td class="td-signal">
+                            <span class="tag tag-acq">Acquisition</span><span class="tag tag-ia">IA</span><br>
+                            Rachat d'<strong>ApiBots</strong> (Oct 2025). Lancement de <strong>Scout</strong> (assistant IA gratuit intégré à Immofacile, 24h/24) + <strong>ImmoScope</strong> (analyse marché temps réel). App Android lancée (12 000+ DL iOS). Reda Mahfoud : <em>« 50% du marché »</em>.
+                        </td>
+                        <td class="td-source">
+                            <a href="https://www.journaldelagence.com/1408751-en-adressant-50-du-marche-nous-avons-la-responsabilite-de-simplifier-le-quotidien-des-professionnels-de-limmobilier-reda-mahfoud-orisha-real-estate" target="_blank">Journal de l'Agence</a>
+                            <a href="https://realestate.orisha.com/blog/produits/orisha-real-estate-revolutionne-le-quotidien-des-agents-immobiliers-avec-son-assistant-virtuel-ia-gratuit-et-integre-a-immofacile/" target="_blank">Orisha Blog</a>
+                        </td>
+                        <td class="td-analyse">Stratégie <strong>« assistant IA gratuit intégré »</strong> = standard d'attente marché créé. La posture "50% du marché" = verrouillage défensif de la base installée. L'Android launch signale une pression terrain forte sur la mobilité.</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">SweepBright<em>Belgique</em></td>
+                        <td class="td-date"><span class="date-chip recent">12 déc.<br>2025</span></td>
+                        <td class="td-signal">
+                            <span class="tag tag-part">Partenariat</span><span class="tag tag-ia">IA Agentique</span><br>
+                            Collaboration avec <strong>Jo AI</strong> (France) — Déc 2025. Premier CRM immobilier européen documenté à intégrer une IA agentique autonome.
+                        </td>
+                        <td class="td-source">
+                            <a href="https://aimgroup.com/2025/12/12/real-estate-crm-provider-sweepbright-collaborates-with-joe-ai/" target="_blank">AIM Group</a>
+                        </td>
+                        <td class="td-analyse">Signal précurseur de rupture. Les clients vont exiger un CRM qui <strong>« agit »</strong>, pas seulement qui « assiste ». Nouveau benchmark dans 12-18 mois pour tout l'écosystème.</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">Apimo · Reapit · Propertybase</td>
+                        <td class="td-date"><span class="date-chip none">—</span></td>
+                        <td class="td-signal no-info">Aucune information récente vérifiable sur des évolutions produit ou partenariats majeurs.</td>
+                        <td class="td-source">—</td>
+                        <td class="td-analyse">À monitorer via offres d'emploi (signal roadmap). Reapit/Propertybase principalement UK/US, faible exposition marché français direct.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ── CATÉGORIE 2 ── -->
+    <section class="section" id="cat2">
+        <div class="section-header">
+            <span class="section-icon">🔌</span>
+            <div class="section-meta">
+                <span class="section-label">Catégorie 2</span>
+                <span class="section-title">Services spécialisés &amp; briques IA</span>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Acteur</th>
+                        <th>Date</th>
+                        <th>Signal</th>
+                        <th>Source</th>
+                        <th>Analyse produit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="td-actor">Nodalview<em>Belgique</em></td>
+                        <td class="td-date"><span class="date-chip recent">Déc.<br>2025</span></td>
+                        <td class="td-signal">
+                            <span class="tag tag-acq">Acquisition</span><br>
+                            Rachat de <strong>Cocoon-Immo</strong> (réseaux sociaux, Google Business Profile). 3ᵉ acquisition. Ensemble : <strong>7 000 clients, 70 collaborateurs</strong> (BRU/PAR/LON). Roadmap 2026 : vidéo simplifiée + <strong>algorithmie de mise en avant automatisée</strong> des annonces.
+                        </td>
+                        <td class="td-source">
+                            <a href="https://www.journaldelagence.com/1411598-photos-videos-reseaux-sociaux-ia-nodalview-et-cocoon-immo-sallient-pour-devenir-la-plateforme-marketing-immobiliere-tout-en-un" target="_blank">Journal de l'Agence</a>
+                            <a href="https://immo2.pro/actualite-immobilier/nodalview-acquiert-cocoon-immo-pour-muscler-sa-plateforme-de-marketing-immobilier/" target="_blank">Immobilier 2.0</a>
+                        </td>
+                        <td class="td-analyse">Nodalview passe de « outil photo » à <strong>plateforme marketing tout-en-un</strong>. Convergence production contenu → diffusion multicanale → SEO local. Menace directe pour les CRM souhaitant couvrir le marketing. Intégration API ou développement natif ?</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">Jo AI<em>France</em></td>
+                        <td class="td-date"><span class="date-chip recent">12 déc.<br>2025</span></td>
+                        <td class="td-signal">
+                            <span class="tag tag-part">Partenariat</span><span class="tag tag-ia">IA Agentique</span><br>
+                            Intégration dans <strong>SweepBright</strong> (Déc 2025). Acteur français positionné sur l'autonomisation de l'agent IA dans l'immobilier.
+                        </td>
+                        <td class="td-source">
+                            <a href="https://aimgroup.com/2025/12/12/real-estate-crm-provider-sweepbright-collaborates-with-joe-ai/" target="_blank">AIM Group</a>
+                        </td>
+                        <td class="td-analyse"><strong>Première brique IA agentique immobilière européenne</strong> intégrée dans un CRM. Le marché se structure autour de quelques acteurs IA spécialisés : absorbés ou incontournables dans 18 mois.</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">PriceHubble<em>CH / France</em></td>
+                        <td class="td-date"><span class="date-chip old">27 fév.<br>2023</span></td>
+                        <td class="td-signal">
+                            <span class="tag tag-part">Partenariat</span><br>
+                            Alliance avec <strong>Nodalview</strong> : coupler valuation AVM et marketing agent. APIs d'estimation automatisée (DVF, données géo, modélisation statistique avancée).
+                        </td>
+                        <td class="td-source">
+                            <a href="https://nodalview.com/blog/real-estate-revolution-nodalview-teams-up-with-pricehubble-to-elevate-your-services" target="_blank">Nodalview Blog</a>
+                        </td>
+                        <td class="td-analyse">Le combo <strong>estimation + visuel + diffusion</strong> se consolide hors CRM. Un CRM sans AVM intégré perd du terrain face à ces assemblages. La data d'estimation devient une feature CRM standard attendue.</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">Garantme<em>France</em></td>
+                        <td class="td-date"><span class="date-chip none">—</span></td>
+                        <td class="td-signal no-info">3 500 agences/résidences partenaires. Pas de signal produit fort récent identifié.</td>
+                        <td class="td-source"><a href="https://garantme.fr/fr/agence/partenaires" target="_blank">Garantme</a></td>
+                        <td class="td-analyse">Acteur mature en phase de consolidation. À surveiller : intégration dans les workflows de gestion locative des CRM.</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">Yousign / Sinimo<em>France</em></td>
+                        <td class="td-date"><span class="date-chip none">—</span></td>
+                        <td class="td-signal">
+                            <span class="tag tag-part">Intégration</span><br>
+                            Sinimo utilise nativement Yousign pour la signature des contrats immobiliers. Infrastructure devenue standard du marché.
+                        </td>
+                        <td class="td-source"><a href="https://www.sinimo.fr/" target="_blank">Sinimo</a></td>
+                        <td class="td-analyse">Infrastructure <strong>commoditisée</strong>. La différenciation ne se jouera plus sur la signature mais sur l'automatisation amont (génération mandats, IA juridique). Signal : Bylaw racheté par Septeo.</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">Kadran · Castorus · Unlatch · Meero</td>
+                        <td class="td-date"><span class="date-chip none">—</span></td>
+                        <td class="td-signal no-info">Aucune information récente vérifiable sur des évolutions majeures dans cette fenêtre.</td>
+                        <td class="td-source">—</td>
+                        <td class="td-analyse">Kadran (estimation) et Unlatch (neuf/promoteurs) = cibles d'acquisition potentielles pour Septeo ou Orisha. À surveiller de près.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ── CATÉGORIE 3 ── -->
+    <section class="section" id="cat3">
+        <div class="section-header">
+            <span class="section-icon">🏢</span>
+            <div class="section-meta">
+                <span class="section-label">Catégorie 3</span>
+                <span class="section-title">Réseaux &amp; Marques immobilières</span>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Acteur</th>
+                        <th>Date</th>
+                        <th>Signal</th>
+                        <th>Source</th>
+                        <th>Analyse produit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="td-actor">IAD<em>France / Int'l</em></td>
+                        <td class="td-date"><span class="date-chip old">30 sept.<br>2024</span></td>
+                        <td class="td-signal">
+                            <span class="tag tag-part">Partenariat</span><br>
+                            Alliance avec <strong>Yanport</strong> (données marché pour 15 000 conseillers, 2024). French Tech Next40. Leadership IA visible au Paris IA Immo Day (Jérôme Chabin, CEO).
+                        </td>
+                        <td class="td-source">
+                            <a href="https://www.mysweetimmo.com/2024/09/30/proptech-iad-noue-un-partenariat-avec-yanport/" target="_blank">MySweetImmo</a>
+                            <a href="https://immo2.pro/actualite-immobilier/proptech-iad-safti-zeplug-papernest-et-littleworker-dans-le-french-tech-next40-120/" target="_blank">Immobilier 2.0</a>
+                        </td>
+                        <td class="td-analyse">IAD construit une <strong>stack data propriétaire</strong> pour ses conseillers, contournant les éditeurs CRM généralistes. Pression sur les CRM à proposer une offre réseau mandataire dédiée.</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">Foncia · Nexity · Orpi<em>France</em></td>
+                        <td class="td-date"><span class="date-chip old">Avr.<br>2019</span></td>
+                        <td class="td-signal">
+                            <span class="tag tag-part">Intégration API</span><br>
+                            Intégration de <strong>CityScan API</strong> (nuisances, transport, écoles, commerces) dans les annonces. Déployé sur <strong>1 800+ sites d'agences</strong>.
+                        </td>
+                        <td class="td-source">
+                            <a href="https://www.immomatin.com/franchise/reseau-franchises/un-marche-de-l-immobilier-sous-le-signe-de-la-reprise-century-21-france-laforet-et-orpi.html" target="_blank">Immo Matin</a>
+                        </td>
+                        <td class="td-analyse">La <strong>donnée géo-contextuelle</strong> devient attendue dans l'annonce standard. Les CRM non connectés à ce type de brique perdront en attractivité réseau. Intégration API tierce ou couche native ?</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">SAFTI<em>France</em></td>
+                        <td class="td-date"><span class="date-chip old">5 juin<br>2025</span></td>
+                        <td class="td-signal">Consolidation à <strong>6 000+ conseillers</strong>. French Tech Next40. Présence forte sur tous les fronts (recrutement, outillage, formation).</td>
+                        <td class="td-source">
+                            <a href="https://www.immomatin.com/franchise/reseau-mandataires/reseau-de-mandataires-safti-sur-tous-les-fronts.html" target="_blank">Immo Matin</a>
+                        </td>
+                        <td class="td-analyse">Pas de signal tech précis récent. La taille (6 000 conseillers) en fait un prescripteur de premier plan. <strong>Cible prioritaire</strong> pour tout partenariat réseau ou offre CRM verticale mandataire.</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">Century 21 · Laforêt<em>France</em></td>
+                        <td class="td-date"><span class="date-chip none">—</span></td>
+                        <td class="td-signal no-info">Déclarations de reprise du marché — focus volume de transactions. Pas de signal tech fort dans cette fenêtre.</td>
+                        <td class="td-source">
+                            <a href="https://www.immomatin.com/franchise/reseau-franchises/un-marche-de-l-immobilier-sous-le-signe-de-la-reprise-century-21-france-laforet-et-orpi.html" target="_blank">Immo Matin</a>
+                        </td>
+                        <td class="td-analyse">En phase de reprise marché, ces réseaux sont moins enclins à switcher d'outils. <strong>Fenêtre de prospection réduite</strong> à court terme. À retravailler en fin d'année.</td>
+                    </tr>
+                    <tr>
+                        <td class="td-actor">Capifrance · Optimhome · Sotheby's</td>
+                        <td class="td-date"><span class="date-chip none">—</span></td>
+                        <td class="td-signal no-info">Aucun signal tech vérifiable récent.</td>
+                        <td class="td-source">—</td>
+                        <td class="td-analyse">Capifrance (~3 000 conseillers) reste une cible de partenariat significative malgré l'absence de signal récent.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ── OPPORTUNITÉS ── -->
+    <section class="section" id="opps">
+        <div class="section-header">
+            <span class="section-icon">💡</span>
+            <div class="section-meta">
+                <span class="section-label">Roadmap</span>
+                <span class="section-title">Opportunités actionnables</span>
+            </div>
+        </div>
+        <div class="opps">
+            <div class="opp">
+                <div class="opp-n">01</div>
+                <div class="opp-body">
+                    <h4>Intégrer la prospection data-driven comme feature CRM <span class="urgency urgency-high">Urgent · 3-6 mois</span></h4>
+                    <p>Septeo rend Modelo end-to-end avec Cadastre.com. La prospection par data (DVF, DPE, PPPI) n'est plus un outil tiers — c'est une feature CRM attendue. La loi anti-démarchage téléphonique aveugle (effective août 2026) va accélérer la demande. Un CRM sans pige intelligente sera perçu comme incomplet.</p>
+                </div>
+            </div>
+            <div class="opp">
+                <div class="opp-n">02</div>
+                <div class="opp-body">
+                    <h4>IA agentique vs IA passive : choisir et communiquer maintenant <span class="urgency urgency-high">Urgent · Comm. dès maintenant</span></h4>
+                    <p>SweepBright × Jo AI définit un nouveau benchmark : l'IA qui « fait » sans attendre l'instruction. Les features IA actuelles (rédaction annonce, suggestion prix) sont des IA passives. Il faut positionner clairement la roadmap sur la direction « agentique » ou risquer l'obsolescence perçue dans 12-18 mois.</p>
+                </div>
+            </div>
+            <div class="opp">
+                <div class="opp-n">03</div>
+                <div class="opp-body">
+                    <h4>Home staging IA = feature CRM standard, plus un module premium <span class="urgency urgency-mid">6-12 mois</span></h4>
+                    <p>HOQI intégré dans Hektor, Flaash dans Nodalview : le home staging virtuel IA sera dans les offres de base des concurrents. Soit intégration native (rachat ou dev), soit partenariat API fort avec un acteur non encore capturé.</p>
+                </div>
+            </div>
+            <div class="opp">
+                <div class="opp-n">04</div>
+                <div class="opp-body">
+                    <h4>Marketing automation multicanal depuis le CRM <span class="urgency urgency-mid">6-12 mois</span></h4>
+                    <p>Nodalview + Cocoon-Immo bâtissent la passerelle production visuelle → diffusion sociale automatisée. Les agents veulent gérer leur présence digitale depuis un seul outil. Angle de différenciation fort si intégré avant que Nodalview ne devienne la référence.</p>
+                </div>
+            </div>
+            <div class="opp">
+                <div class="opp-n">05</div>
+                <div class="opp-body">
+                    <h4>Segment réseau mandataire — territoire peu disputé <span class="urgency urgency-mid">Moyen terme</span></h4>
+                    <p>IAD, SAFTI, Capifrance = 25 000+ conseillers non liés à un CRM traditionnel. Enjeu : autonomie terrain + mobile + IA proactive + commission tracking. Un CRM taillé pour ce segment reste un territoire peu disputé par les acteurs en place.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SIGNAUX FAIBLES ── -->
+    <section class="section" id="sf">
+        <div class="section-header">
+            <span class="section-icon">⚠️</span>
+            <div class="section-meta">
+                <span class="section-label">Tendances émergentes</span>
+                <span class="section-title">Signaux faibles à suivre</span>
+            </div>
+        </div>
+        <div class="sf">
+            <div class="sf-item">
+                <div class="sf-arrow">→</div>
+                <div class="sf-text"><strong>Loi anti-démarchage téléphonique (effective août 2026)</strong> — Va créer une rupture dans les pratiques de prospection. Les agents sans solution data-driven chercheront un CRM à pige intelligente intégrée. Fenêtre de positioning fort dans les 2 prochains mois.</div>
+            </div>
+            <div class="sf-item">
+                <div class="sf-arrow">→</div>
+                <div class="sf-text"><strong>Consolidation vers des plateformes fermées</strong> — La stratégie Septeo / La Boîte Immo crée des suites intégrées. Dans 18-24 mois, les agents utilisateurs de ces suites auront de moins en moins de raisons d'utiliser un outil tiers. Les CRM indépendants devront proposer une API ouverte attractive ou s'adosser à un écosystème partenaire fort.</div>
+            </div>
+            <div class="sf-item">
+                <div class="sf-arrow">→</div>
+                <div class="sf-text"><strong>L'IA « agentique » comme nouveau critère de sélection</strong> — Jo AI × SweepBright est un signal avant-coureur. Dans les AO réseaux à partir de 2027, les acheteurs distingueront CRM « à commandes » et CRM « à agents IA ». La sémantique « agentique » va structurer les pitches commerciaux.</div>
+            </div>
+            <div class="sf-item">
+                <div class="sf-arrow">→</div>
+                <div class="sf-text"><strong>Nodalview comme couche marketing au-dessus des CRM</strong> — Sa roadmap 2026 (vidéo + algorithmie diffusion) peut en faire une brique indispensable qui court-circuite le CRM sur la visibilité des annonces. Question ouverte : intégration profonde dans les CRM ou concurrence frontale sur le front agent ?</div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ════════════════════  FOOTER  ════════════════════ -->
+<footer class="footer">
+    <b>NAXOS</b> &nbsp;·&nbsp; Veille Immobilier &amp; Proptech &nbsp;·&nbsp; 8 juin 2026 &nbsp;·&nbsp; Usage interne — Ne pas diffuser
+</footer>
+
+</body>
+</html>
